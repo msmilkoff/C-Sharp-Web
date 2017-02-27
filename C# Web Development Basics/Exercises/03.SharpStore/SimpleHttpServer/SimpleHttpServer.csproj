@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8858917A-3AD7-47F0-86AE-A398B4BDECE8}</ProjectGuid>
+    <ProjectGuid>{9E139539-C272-488A-BFCF-CADDF458DF9D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SimpleHttpServer</RootNamespace>

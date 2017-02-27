@@ -35,12 +35,10 @@
 
         public override string ToString()
         {
-            var response = new StringBuilder();
-
-            response.AppendLine($"HTTP/1.0 {this.StatusCode} {this.StatusMesage}");
-            response.AppendLine(this.Header.ToString());
-
-            return response.ToString();
+            return string.Format("HTTP/1.0 {0} {1}\r\n{2}",
+                (int)this.StatusCode,
+                this.StatusMesage,
+                this.Header);
         }
     }
 }
