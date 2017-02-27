@@ -48,12 +48,37 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Properties\content\bootstrap\css\bootstrap-theme.css.map" />
+    <None Include="Properties\content\bootstrap\css\bootstrap-theme.min.css.map" />
+    <None Include="Properties\content\bootstrap\css\bootstrap.css.map" />
+    <None Include="Properties\content\bootstrap\css\bootstrap.min.css.map" />
+    <None Include="Properties\content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Properties\content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Properties\content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Properties\content\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimpleHttpServer\SimpleHttpServer.csproj">
       <Project>{9e139539-c272-488a-bfcf-caddf458df9d}</Project>
       <Name>SimpleHttpServer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\content\about.html" />
+    <Content Include="Properties\content\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Properties\content\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Properties\content\bootstrap\css\bootstrap.css" />
+    <Content Include="Properties\content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Properties\content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Properties\content\bootstrap\js\bootstrap.js" />
+    <Content Include="Properties\content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Properties\content\bootstrap\js\npm.js" />
+    <Content Include="Properties\content\css\carousel.css" />
+    <Content Include="Properties\content\home.html" />
+    <Content Include="Properties\content\jquery\jquery-3.1.1.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\content\images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
