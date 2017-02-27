@@ -30,8 +30,8 @@
 
             while (this.IsActive)
             {
-                TcpClient client = this.Listener.AcceptTcpClient();
-                Thread thread = new Thread(() =>
+                var client = this.Listener.AcceptTcpClient();
+                var thread = new Thread(() =>
                 {
                     using (var stream = client.GetStream())
                     {
