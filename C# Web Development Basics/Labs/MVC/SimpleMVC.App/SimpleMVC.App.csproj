@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppStart.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="MVC\Attributes\Methods\HttpGetAttribute.cs" />
     <Compile Include="MVC\Attributes\Methods\HttpMethodAttribute.cs" />
     <Compile Include="MVC\Attributes\Methods\HttpPostAttribute.cs" />
@@ -61,14 +62,13 @@
     <Compile Include="MVC\ViewEngine\Generic\ActionResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteTable.cs" />
+    <Compile Include="Views\Home\Index.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimpleHttpServer\SimpleHttpServer.csproj">
