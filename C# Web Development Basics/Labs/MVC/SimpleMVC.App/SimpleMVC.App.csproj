@@ -47,6 +47,7 @@
     <Compile Include="MVC\Attributes\Methods\HttpGetAttribute.cs" />
     <Compile Include="MVC\Attributes\Methods\HttpMethodAttribute.cs" />
     <Compile Include="MVC\Attributes\Methods\HttpPostAttribute.cs" />
+    <Compile Include="MVC\Controllers\Controller.cs" />
     <Compile Include="MVC\Interfaces\Generic\IActionResult.cs" />
     <Compile Include="MVC\Interfaces\Generic\IRenderable.cs" />
     <Compile Include="MVC\Interfaces\IActionResult.cs" />
@@ -54,7 +55,12 @@
     <Compile Include="MVC\Interfaces\IInvokable.cs" />
     <Compile Include="MVC\Interfaces\IRenderable.cs" />
     <Compile Include="MVC\MvcContext.cs" />
+    <Compile Include="MVC\MvcEngine.cs" />
+    <Compile Include="MVC\Routers\ControllerRouter.cs" />
+    <Compile Include="MVC\ViewEngine\ActionResult.cs" />
+    <Compile Include="MVC\ViewEngine\Generic\ActionResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RouteTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -62,9 +68,6 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
-    <Folder Include="MVC\Controllers\" />
-    <Folder Include="MVC\Routers\" />
-    <Folder Include="MVC\ViewEngine\Generic\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
