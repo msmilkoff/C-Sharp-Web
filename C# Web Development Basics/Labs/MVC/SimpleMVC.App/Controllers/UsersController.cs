@@ -1,18 +1,26 @@
-﻿namespace SimpleMVC.App.Controllers
-{
-    using System.Collections.Generic;
-    using System.Linq;
-    using BindingModels;
-    using Data;
-    using Data.Models;
-    using MVC.Attributes.Methods;
-    using MVC.Controllers;
-    using MVC.Interfaces;
-    using MVC.Interfaces.Generic;
-    using ViewModels;
+﻿using SimpleHttpServer.Models;
+using SimpleMVC.App.BindingModels;
+using SimpleMVC.App.Data;
+using SimpleMVC.App.Models;
+using SimpleMVC.App.MVC.Attributes.Methods;
+using SimpleMVC.App.MVC.Controllers;
+using SimpleMVC.App.MVC.Interfaces;
+using SimpleMVC.App.MVC.Interfaces.Generic;
+using SimpleMVC.App.MVC.Security;
+using SimpleMVC.App.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace SimpleMVC.App.Controllers
+{
     public class UsersController : Controller
     {
+        private SignInManager signInManager;
+        public UsersController()
+        {
+            signInManager = new SignInManager(new NotesAppContext());
+        }
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -22,13 +30,12 @@
         [HttpPost]
         public IActionResult Register(RegisterUserBindingModel model)
         {
-            var user = new User
+            var user = new User()
             {
                 Username = model.Username,
-                Password = model.Password
+                Passsword = model.Password
             };
-
-            using(var context = new NotesContext())
+            using (var context = new NotesAppContext())
             {
                 context.Users.Add(user);
                 context.SaveChanges();
@@ -37,32 +44,77 @@
             return View();
         }
 
-        public IActionResult<AllUsernamesViewModel> All()
+        [HttpGet]
+        public IActionResult<AllUsernamesViewModel> All(HttpSession session, HttpResponse response)
         {
-            Dictionary<int, string> usernames = null;
-            using (var context = new NotesContext())
+            if (!signInManager.IsAuthenticated(session))
             {
-                usernames = context.Users
-                    .Select(x => new
-                    {
-                        Id = x.Id,
-                        Username = x.Username
-                    })
-                    .ToDictionary(x => x.Id, x => x.Username);
+                Redirect(response, "/users/login");
+                return null;
             }
 
-            var viewModel = new AllUsernamesViewModel
+            List<string> usernames = null;
+            using (var context = new NotesAppContext())
+            {
+                usernames = context.Users.Select(u => u.Username).ToList();
+            }
+
+            var viewModel = new AllUsernamesViewModel()
             {
                 Usernames = usernames
             };
 
             return View(viewModel);
+
+        }
+
+        [HttpPost]
+        public IActionResult Logout(HttpSession session)
+        {
+            signInManager.Logout(session);
+            return View("Home", "Index");
+        }
+        public IActionResult<GreetViewModel> Greet(HttpSession session)
+        {
+            var viewModel = new GreetViewModel()
+            {
+                SessionId = session.Id
+            };
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginUserBindingModel model, HttpSession session, HttpResponse response)
+        {
+            using (var context = new NotesAppContext())
+            {
+                var user = context.Users.FirstOrDefault(u => u.Username == model.Username && u.Passsword == model.Password);
+                if (user != null)
+                {
+                    context.Logins.Add(new Login()
+                    {
+                        SessionId = session.Id,
+                        User = user,
+                        IsActive = true
+                    });
+                    context.SaveChanges();
+                    Redirect(response, "/home/index");
+                    return null;
+                }
+            }
+            return View();
         }
 
         [HttpGet]
         public IActionResult<UserProfileViewModel> Profile(int id)
         {
-            using (var context = new NotesContext())
+            using (var context = new NotesAppContext())
             {
                 var user = context.Users.Find(id);
                 var viewModel = new UserProfileViewModel
@@ -70,15 +122,14 @@
                     UserId = user.Id,
                     Username = user.Username,
                     Notes = user.Notes
-                        .Select(n =>
-                        new NoteViewModel
-                        {
-                            Title = n.Title,
-                            Content = n.Content
-                        }
-                    )
+                        .Select(x =>
+                            new NoteViewModel()
+                            {
+                                Title = x.Title,
+                                Content = x.Content
+                            }
+                        )
                 };
-
                 return View(viewModel);
             }
         }
@@ -86,7 +137,7 @@
         [HttpPost]
         public IActionResult<UserProfileViewModel> Profile(AddNoteBindingModel model)
         {
-            using (var context = new NotesContext())
+            using (var context = new NotesAppContext())
             {
                 var user = context.Users.Find(model.UserId);
                 var note = new Note
@@ -94,12 +145,12 @@
                     Title = model.Title,
                     Content = model.Content
                 };
-
                 user.Notes.Add(note);
                 context.SaveChanges();
-            }
 
-            return this.Profile(model.UserId);
+            };
+            return Profile(model.UserId);
         }
     }
 }
+

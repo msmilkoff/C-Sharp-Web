@@ -1,9 +1,10 @@
-﻿namespace SimpleMVC.App.ViewModels
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace SimpleMVC.App.ViewModels
+{
     public class AllUsernamesViewModel
     {
-        public IDictionary<int, string> Usernames { get; set; }
+        public IList<string> Usernames { get; set; }
     }
 }
+

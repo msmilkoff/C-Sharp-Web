@@ -1,6 +1,6 @@
 ﻿namespace SimpleMVC.App.MVC.Interfaces
 {
-    public interface IActionResult : IInvokable
+    public interface IActionResult : IInvocable
     {
         IRenderable Action { get; set; }
     }

@@ -16,6 +16,7 @@ namespace SimpleHttpServer.Models
         public HeaderType Type { get; set; }
         public string ContentType { get; set; }
         public string ContentLength { get; set; }
+        public string Location { get; set; }
         public Dictionary<string, string> OtherParameters { get; set; }
         public CookieCollection Cookies { get; private set; }
 
@@ -29,6 +30,10 @@ namespace SimpleHttpServer.Models
         {
             StringBuilder header = new StringBuilder();
             header.AppendLine("Content-type: " + this.ContentType);
+            if (this.Location != null)
+            {
+                header.AppendLine("Location: " + this.Location);
+            }
             if (this.Cookies.Count > 0)
             {
                 if (this.Type == HeaderType.HttpRequest)

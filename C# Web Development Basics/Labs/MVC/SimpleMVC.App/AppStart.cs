@@ -1,13 +1,13 @@
-﻿namespace SimpleMVC.App
-{
-    using SimpleHttpServer;
-    using MVC;
+﻿using SimpleHttpServer;
+using SimpleMVC.App.MVC;
 
-    public class AppStart
+namespace SimpleMVC.App
+{
+    class AppStart
     {
-        public static void Main()
+        static void Main(string[] args)
         {
-            var server = new HttpServer(8081, RouteTable.Routes);
+            HttpServer server = new HttpServer(8081, RouteTable.Routes);
             MvcEngine.Run(server);
         }
     }

@@ -1,9 +1,9 @@
-﻿namespace SimpleMVC.App.MVC
-{
-    using System;
-    using System.Reflection;
-    using SimpleHttpServer;
+﻿using SimpleHttpServer;
+using System;
+using System.Reflection;
 
+namespace SimpleMVC.App.MVC
+{
     public static class MvcEngine
     {
         public static void Run(HttpServer server)
@@ -19,14 +19,22 @@
             }
             catch (Exception e)
             {
-                // Log errors
+                //Log errors
                 Console.WriteLine(e.Message);
             }
         }
 
-        private static void RegisterModels()
+        private static void RegisterAssemblyName()
         {
-            MvcContext.Current.ModelsFolder = "Models";
+            MvcContext.Current.AssemblyName =
+                Assembly.GetExecutingAssembly().GetName().Name;
+
+        }
+
+        private static void RegisterControllers()
+        {
+            MvcContext.Current.ControllersFolder = "Controllers";
+            MvcContext.Current.ControllersSuffix = "Controller";
         }
 
         private static void RegisterViews()
@@ -34,15 +42,9 @@
             MvcContext.Current.ViewsFolder = "Views";
         }
 
-        private static void RegisterControllers()
+        private static void RegisterModels()
         {
-            MvcContext.Current.ControllersFolder = "Controllers";
-            MvcContext.Current.ControllerSuffix = "Controller";
-        }
-
-        private static void RegisterAssemblyName()
-        {
-            MvcContext.Current.AssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+            MvcContext.Current.ModelsFolder = "Models";
         }
     }
 }

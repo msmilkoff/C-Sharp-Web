@@ -41,7 +41,7 @@ namespace SimpleHttpServer.Models
         }
         public override string ToString()
         {
-            return string.Format("HTTP/1.0 {0} {1}\r\n{2}",
+            return string.Format("HTTP/1.1 {0} {1}\r\n{2}",
                 (int)this.StatusCode,
                 this.StatusMessage,
                 this.Header);
